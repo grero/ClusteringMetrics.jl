@@ -1,5 +1,6 @@
 module ClusteringMetrics
 using StatsBase
+using MultivariateStats
 using LinearAlgebra
 
 """
