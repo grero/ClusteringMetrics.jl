@@ -30,4 +30,4 @@ before_script: # homebrew for mac
 #script:
 after_success:
   # push coverage results to Codecov
-  - julia -e 'using Pkg; import ClusteringMetrics; cd(joinpath(dirname(pathof(DataProcessingHierarchyTools)),"..")); Pkg.add("Coverage"); using Coverage; Codecov.submit(Codecov.process_folder())'
+  - julia -e 'using Pkg; import ClusteringMetrics; cd(joinpath(dirname(pathof(ClusteringMetrics)),"..")); Pkg.add("Coverage"); using Coverage; Codecov.submit(Codecov.process_folder())'
