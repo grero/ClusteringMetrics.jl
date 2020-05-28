@@ -23,9 +23,15 @@ end
     dd = ClusteringMetrics.get_isolation_distance(Z1, label1, Z2, label2)
     # large cross distance, indicating high generalisability
     @test dd ≈ [296.9888641641518, 301.87857155988695]
+    dd = ClusteringMetrics.get_cluster_distance(Z1, label1, Z2, label2)
+
+    # zero confusion when the sets are the same
+    @test dd ≈ [0.0, 0.0]
     Z2[:,1:5] = Z1[:,6:end]
     Z2[:, 6:end] = Z1[:, 1:5]
     dd = ClusteringMetrics.get_isolation_distance(Z1, label1, Z2, label2)
     # low cross distance indicating low generlisability
     @test dd ≈ [0.0033671296154972326, 0.003312590207488839]
+    dd = ClusteringMetrics.get_cluster_distance(Z1, label1, Z2, label2)
+    @test dd ≈ [64.50554889037353, 64.5055488903735]
 end
