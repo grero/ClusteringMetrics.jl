@@ -10,8 +10,10 @@ Compute the distance between the class clusters in `Z1` and `Z2` using class lab
 """
 function get_cluster_distance(Z1::Matrix{T}, label1::Vector{T2}, Z2::Matrix{T}, label2::Vector{T2}) where T <: Real where T2
     # Compute class statistics on the projected trials
-    ldastats_1 = CodeMorphingCore.MultivariateStats.multiclass_lda_stats(4, Z1, label1)
-    ldastats_2 = CodeMorphingCore.MultivariateStats.multiclass_lda_stats(4, Z2, label2)
+    nc1 = maximum(label1)
+    nc2 = maximum(label2)
+    ldastats_1 = MultivariateStats.multiclass_lda_stats(nc1, Z1, label1)
+    ldastats_2 = MultivariateStats.multiclass_lda_stats(nc2, Z2, label2)
 
     # Compute a normalized distance between cluster centers
     Sw = Diagonal(diag(ldastats_1.Sw + ldastats_2.Sw))
