@@ -92,7 +92,7 @@ function get_isolation_distance(Z1::Matrix{T}, label1::Vector{T2}, Z2::Matrix{T}
     np2 = size(Z2, 2)
 
     n1 = StatsBase.countmap(label1)
-    n2 = StatsBase.countmap(label1)
+    n2 = StatsBase.countmap(label2)
     d_in = fill(0.0, nc) 
     d_out = fill(Inf,np1*np2,nc)
     k = 1
