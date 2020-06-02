@@ -115,4 +115,44 @@ function get_isolation_distance(Z1::Matrix{T}, label1::Vector{T2}, Z2::Matrix{T}
     d_om./d_in
 end
 
+"""
+    get_cluster_isolation(Z1::Matrix{T}, label1::Vector{T2}, Z2::Matrix{T}, label2::Vector{T2}) where T <: Real where T2
+
+For each cluster, return ratio of the number of points `Z1` that are closer to a point in the same cluster in `Z2` to the number of points that are closer to a different cluster in `Z2`.
+"""
+function get_cluster_isolation(Z1::Matrix{T}, label1::Vector{T2}, Z2::Matrix{T}, label2::Vector{T2}) where T <: Real where T2
+    nc = maximum(label1)
+    nc == maximum(label2) || error("Cluster labels should match between the two inputs")
+
+    np1 = size(Z1, 2)
+    np2 = size(Z2, 2)
+
+    n1 = StatsBase.countmap(label1)
+    n2 = StatsBase.countmap(label2)
+    n_in = fill(0, nc)
+    n_out = fill(0,nc)
+    for i in 1:np1
+        li = label1[i]
+        d_in = Inf
+        d_out = Inf
+        for j in 1:np2
+            lj = label2[j]
+            d = sum(x->x*x, Z1[:,i] - Z2[:,j])
+            if lj == li
+                d_in = min(d_in, d)
+            else
+                d_out = min(d_out,d)
+            end
+        end
+        if d_in < d_out
+            n_in[li] += 1
+        else
+            n_out[li] += 1
+        end
+    end
+    q = (n_in - n_out)./(n_in + n_out)
+    #normalize from 0 to 1
+    q = (q .+ 1)./2
+end
+
 end # module
