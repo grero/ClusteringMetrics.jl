@@ -27,6 +27,10 @@ end
 
     # zero confusion when the sets are the same
     @test dd ≈ [0.0, 0.0]
+
+    n = ClusteringMetrics.get_cluster_isolation(Z1, label1, Z2, label2)
+    @test n ≈ [1.0, 1.0]
+
     Z2[:,1:5] = Z1[:,6:end]
     Z2[:, 6:end] = Z1[:, 1:5]
     dd = ClusteringMetrics.get_isolation_distance(Z1, label1, Z2, label2)
@@ -34,4 +38,6 @@ end
     @test dd ≈ [0.0033671296154972326, 0.003312590207488839]
     dd = ClusteringMetrics.get_cluster_distance(Z1, label1, Z2, label2)
     @test dd ≈ [64.50554889037353, 64.5055488903735]
+    n = ClusteringMetrics.get_cluster_isolation(Z1, label1, Z2, label2)
+    @test n ≈ [0.0, 0.0]
 end
