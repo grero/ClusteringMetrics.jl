@@ -1,7 +1,7 @@
 name = "ClusteringMetrics"
 uuid = "439a6456-57e8-4342-baa7-23a3ee0fadbe"
 authors = ["roger <roger.herikstad@gmail.com>"]
-version = "0.3.0"
+version = "0.3.1"
 
 [deps]
 LinearAlgebra = "37e2e46d-f89d-539d-b4ee-838fcccc9c8e"
